@@ -5,10 +5,15 @@ local capabilities = base.capabilities
 
 local lspconfig = require("lspconfig")
 
-lspconfig.clangd.setup {
-  on_attach = function(client, bufnr)
-    client.server_capabilities.signatureHelpProvider = false
-    on_attach(client, bufner)
-  end,
-  capabilities = capabilities,
+local servers = {
+  "ts_ls",
+  "eslint",
+  "clangd",
 }
+
+for _, lsp in ipairs(servers) do
+  lspconfig[lsp].setup {
+    on_attach = on_attach,
+    capabilities = capabilities,
+  }
+end

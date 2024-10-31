@@ -1,10 +1,39 @@
 local plugins = {
   {
+    "windwp/nvim-ts-autotag",
+    ft = {
+      "javascript",
+      "javascriptreact",
+      "typescript",
+      "typescriptreact",
+    },
+    config = function() 
+      require("nvim-ts-autotag").setup()
+    end
+  },
+  {
     "github/copilot.vim",
     lazy = false
   },
   {
-    "jose-elias-alvarez/null-ls.nvim",
+    "nvim-treesitter/nvim-treesitter",
+    opts = function()
+      opts = require "plugins.configs.treesitter"
+      opts.ensure_installed = {
+        "lua",
+        "javascript",
+        "typescript",
+        "tsx",
+        "json",
+        "html",
+        "css",
+        "cpp"
+      }
+      return opts
+    end,
+  },
+  {
+    "nvimtools/none-ls.nvim",
     event = "VeryLazy",
     opts = function ()
       return require("custom.configs.null-ls")
@@ -22,7 +51,10 @@ local plugins = {
     opts = {
       ensure_installed = {
         "clangd",
-        "clang-format"
+        "clang-format",
+        "typescript-language-server",
+        "eslint-lsp",
+        "prettierd"
       }
     }
   }
